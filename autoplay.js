@@ -1,32 +1,9 @@
 (function () {
-  window.addEventListener("load", () => {
-    // noinspection JSUnresolvedVariable
-    let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    let xhr = new XMLHttpRequest();
-    xhr.open("GET", "./RustyNail.mp3");
-    xhr.responseType = "arraybuffer";
-    xhr.addEventListener("load", () => {
-      let playsound = (audioBuffer) => {
-        let source = audioCtx.createBufferSource();
-        source.buffer = audioBuffer;
-        source.connect(audioCtx.destination);
-        source.loop = false;
-        source.start();
+  var audio = document.createElement("audio");
+  document.body.appendChild(audio);
+  audio.src = "./RustyNail.mp3";
 
-        // setTimeout(function () {
-        //   let t = document.createElement("p");
-        //   t.appendChild(
-        //     document.createTextNode(
-        //       new Date().toLocaleString() + ": Sound played"
-        //     )
-        //   );
-        //   document.querySelector(".output").appendChild(t);
-        //   playsound(audioBuffer);
-        // }, 1000 + Math.random() * 2500);
-      };
-
-      audioCtx.decodeAudioData(xhr.response).then(playsound);
-    });
-    xhr.send();
+  document.body.addEventListener("mousemove", function () {
+    audio.play();
   });
-});
+})();
